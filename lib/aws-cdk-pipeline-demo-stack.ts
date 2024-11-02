@@ -14,8 +14,6 @@ export class AwsCdkPipelineDemoStack extends cdk.Stack {
         commands: [
           'npm ci',               // For CDK dependencies
           'npm run build',        // For compiling CDK TypeScript code
-          'ls -R',                                   // List all files and directories recursively
-          'mvn -f $CODEBUILD_SRC_DIR/lambda/pom.xml clean package', // Use the absolute path for Maven
           'npx cdk synth'
         ]
       })
