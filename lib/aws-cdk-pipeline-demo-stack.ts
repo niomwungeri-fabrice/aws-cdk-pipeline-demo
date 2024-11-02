@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-import { MyPipelineStage } from '../lib/stages';
+import { MyPipelineStage } from './stages';
 
 
 export class AwsCdkPipelineDemoStack extends cdk.Stack {
