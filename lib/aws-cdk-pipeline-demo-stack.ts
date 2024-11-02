@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-import { MyPipelineStage } from './stages';
+import { MyPipelineStage } from '../lib/stages';
 
 
 export class AwsCdkPipelineDemoStack extends cdk.Stack {
@@ -15,7 +15,8 @@ export class AwsCdkPipelineDemoStack extends cdk.Stack {
           'npm ci',               // For CDK dependencies
           'npm run build',        // For compiling CDK TypeScript code
           'ls -R',                                   // List all files and directories recursively
-          'mvn -f lambda/pom.xml clean package',     // Attempt to build the Java Lambda code          'npx cdk synth'         // Synthesize the CDK stack
+          'mvn -f $CODEBUILD_SRC_DIR/lambda/pom.xml clean package', // Use the absolute path for Maven
+          'npx cdk synth'
         ]
       })
     })
