@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing npm dependencies for CDK"
+      - npm install  # Install CDK dependencies from package.json
+  pre_build:
+    commands:
+      - echo "Building Java project"
+      - cd lambda         # Move into the directory containing the Java Lambda code
+      - mvn clean package # Compile and package the Java project into a JAR
+      - cd ..             # Move back to the root directory
+  build:
+    commands:
+      - echo "Building and synthesizing CDK"
+      - npm run build     # Compile TypeScript code for CDK
+      - npx cdk synth     # Synthesize CloudFormation template
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+
+artifacts:
+  files:
+    - '**/*' # This includes all files. Adjust if you only need specific files.
+  discard-paths: yes

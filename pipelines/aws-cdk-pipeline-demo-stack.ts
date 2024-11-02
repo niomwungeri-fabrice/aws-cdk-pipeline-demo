@@ -12,10 +12,12 @@ export class AwsCdkPipelineDemoStack extends cdk.Stack {
       synth: new ShellStep('synth', {
         input: CodePipelineSource.gitHub("niomwungeri-fabrice/aws-cdk-pipeline-demo", "main"),
         commands: [
-          'npm ci',
-          'npm run build',
-          'mvn clean package',    // Build the Java application (adjust the command if necessary)
-          'npx cdk synth'
+          'npm ci',               // For CDK dependencies
+          'npm run build',        // For compiling CDK TypeScript code
+          'cd lambda',            // Move into the directory containing pom.xml
+          'mvn clean package',    // Build the Java application
+          'cd ..',                // Go back to root
+          'npx cdk synth'         // Synthesize the CDK stack
         ]
       })
     })
